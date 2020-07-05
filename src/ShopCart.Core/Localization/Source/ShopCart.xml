@@ -20,6 +20,7 @@
     <text name="Password" value="Password" />
     <text name="RememberMe" value="Remember me" />
     <text name="LogIn" value="Log in" />
+    <text name="States" value="States" />
 
     <text name="LoginFailed" value="Login failed!" />
 

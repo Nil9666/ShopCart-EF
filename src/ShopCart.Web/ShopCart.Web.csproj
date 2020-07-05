@@ -2756,6 +2756,7 @@
     <Content Include="Views\Roles\_EditRoleModal.js" />
     <Content Include="Views\Shared\_Layout.css" />
     <Content Include="Views\Shared\_Layout.js" />
+    <Content Include="Views\State\Index.js" />
     <Content Include="Views\Tenants\Index.js" />
     <Content Include="Views\Tenants\_EditTenantModal.js" />
     <Content Include="Views\Users\Index.js" />

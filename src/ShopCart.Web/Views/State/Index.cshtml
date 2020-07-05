@@ -1,87 +1,131 @@
-﻿@{
-    ViewBag.ActiveMenu = PageNames.About; //The menu item will be active for this page.
+﻿@using Abp.Web.Mvc.Extensions
+@model ShopCart.Web.Models.Roles.RoleListViewModel
+@{ ViewBag.ActiveMenu = PageNames.State; //The menu item will be active for this page. 
+}
+@section scripts
+{
+    @Html.IncludeScript("~/Views/State/Index.js")
 }
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
             <div class="header">
                 <h2>
-                    About This Template
+                    @L("Roles")
                 </h2>
-            </div>
-            <div class="body">
-                <p>
-                    This is a simple startup template based on ASP.NET Boilerplate framework and Module Zero.
-                    If you need an enterprise startup project, check <a href="http://aspnetzero.com?ref=abptmpl" target="_blank">ASP.NET ZERO</a>.
-                </p>
-
-                <h3>What is ASP.NET Boilerplate?</h3>
-
-                <p>
-                    ASP.NET Boilerplate is an application framework built on latest <strong>ASP.NET Core</strong> framework.
-                    It makes easy to use authorization, dependency injection, validation, exception handling, localization, logging, caching, background jobs and so on.
-                    It's built on already familiar tools like Entity Framework, AutoMapper, Castle Windsor...
-                </p>
-
-                <p>
-                    ASP.NET Boilerplate implements <strong>NLayer architecture</strong> (Domain, Application, Infrastructure and Presentation Layers)
-                    and <strong>Domain Driven Design</strong> (Entities, Repositories, Domain/Application Services, DTO's...).
-                    Also implements and provides a good infrastructure to implement common software development <strong>best practices</strong>.
-                </p>
-
-                <h3>What is Module Zero?</h3>
-
-                <p>
-                    ASP.NET Boilerplate framework is designed to be independent of any database
-                    schema and to be as generic as possible. Therefore, It leaves some concepts
-                    <strong>abstract</strong> and <strong>optional</strong> (like audit logging, permission and setting stores)
-                    which requires some <strong>data store</strong>.
-                </p>
-                <p>
-                    <strong>Module Zero </strong>implements all fundamental concepts of ASP.NET
-                    Boilerplate framework such as <a href="http://www.aspnetboilerplate.com/Pages/Documents/Zero/Tenant-Management">tenant management</a> (<strong>multi-tenancy</strong>),
-                    <a href="http://www.aspnetboilerplate.com/Pages/Documents/Zero/Role-Management">
-                        role management
-                    </a>, <a href="http://www.aspnetboilerplate.com/Pages/Documents/Zero/User-Management">user management</a>,
-                    <a href="http://www.aspnetboilerplate.com/Pages/Documents/Authorization">authorization</a> (<a href="http://www.aspnetboilerplate.com/Pages/Documents/Zero/Permission-Management">
-                        permission management
-                    </a>),
-                    <a href="http://www.aspnetboilerplate.com/Pages/Documents/Setting-Management">setting management</a>, <a href="http://www.aspnetboilerplate.com/Pages/Documents/Zero/Language-Management">
-                        language management
-                    </a>, <a href="http://www.aspnetboilerplate.com/Pages/Documents/Audit-Logging">audit logging</a>
-                    and so on.
-                </p>
-                <p>
-                    Module-Zero defines entities and implements <strong>domain logic</strong>
-                    (domain layer) and leaves application and presentation layers to you.
-                </p>
-
-                <h4>Based on Microsoft ASP.NET Core Identity</h4>
-
-                <p>
-                    Module Zero is based on Microsoft's
-                    <a href="https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity" target="_blank">ASP.NET Core Identity</a> library.
-                    It extends user and role managers and implements user and role stores using generic repositories.
-                </p>
-
-                <h3>Documentation</h3>
-
-                <ul>
-                    <li>
-                        <a href="https://www.aspnetboilerplate.com/Pages/Documents/Zero/Startup-Template-Core">Documentation for this template</a>
-                    </li>
-                    <li>
-                        <a href="http://www.aspnetboilerplate.com/Pages/Documents">ASP.NET Boilerplate documentation</a>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>Refresh</a></li>
+                        </ul>
                     </li>
                 </ul>
-
-                <h3>Source code</h3>
-
-                <p>
-                    This template is developed open source on Github. You can contribute to the template.
-                    <a href="https://github.com/aspnetboilerplate/module-zero-core-template" target="_blank">https://github.com/aspnetboilerplate/module-zero-core-template</a>
-                </p>
             </div>
+            <div class="body table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>@L("RoleName")</th>
+                            <th>@L("DisplayName")</th>
+                            <th>@L("Actions")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var role in Model.Roles)
+                        {
+            <tr>
+                <td>@role.Name</td>
+                <td>@role.DisplayName</td>
+                <td class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="#" class="waves-effect waves-block edit-role" data-role-id="@role.Id" data-toggle="modal" data-target="#RoleEditModal"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                        <li><a href="#" class="waves-effect waves-block delete-role" data-role-id="@role.Id" data-role-name="@role.Name"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                    </ul>
+                </td>
+            </tr>}
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#RoleCreateModal">
+                    <i class="material-icons">add</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="RoleCreateModal" tabindex="-1" role="dialog" aria-labelledby="RoleCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>@L("CreateNewRole")</span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form name="roleCreateForm" role="form" novalidate class="form-validation">
+                    <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input id="rolename" type="text" name="Name" required maxlength="32" minlength="2" class="validate form-control">
+                                    <label for="rolename" class="form-label">@L("RoleName")</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input id="displayname" type="text" name="DisplayName" required maxlength="32" minlength="2" class="validate form-control">
+                                    <label for="displayname" class="form-label">@L("DisplayName")</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <textarea id="role-description" name="Description" class="validate form-control"></textarea>
+                                    <label for="role-description" class="form-label">Role Description</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <h4>Permissions</h4>
+                            @foreach (var permission in Model.Permissions)
+                            {
+                <div class="col-sm-6">
+                    <input type="checkbox" name="permission" value="@permission.Name" class="filled-in" id="@string.Format("permission{0}",permission.Name)" checked="checked" />
+                    <label for="@string.Format("permission{0}",permission.Name)">@permission.DisplayName</label>
+                </div>}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">@L("Cancel")</button>
+                        <button type="submit" class="btn btn-primary waves-effect">@L("Save")</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="RoleEditModal" tabindex="-1" role="dialog" aria-labelledby="RoleEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
         </div>
     </div>
 </div>

@@ -56,6 +56,15 @@ namespace ShopCart.Web
                         url: "About",
                         icon: "info"
                     )
+                )
+                .AddItem(
+                    new MenuItemDefinition(
+                        PageNames.State,
+                        L("States"),
+                        url: "State",
+                        icon: "info",
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_State)
+                    )
                 ).AddItem( //Menu items below is just for demonstration!
                     new MenuItemDefinition(
                         "MultiLevelMenu",
