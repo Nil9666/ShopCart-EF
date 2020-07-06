@@ -243,6 +243,10 @@
     <Compile Include="Roles\Dto\PermissionDto.cs" />
     <Compile Include="Roles\Dto\RoleDto.cs" />
     <Compile Include="Roles\IRoleAppService.cs" />
+    <Compile Include="States\Dto\CreateOrEditStateDto.cs" />
+    <Compile Include="States\Dto\StateDto.cs" />
+    <Compile Include="States\IStateAppService.cs" />
+    <Compile Include="States\StateAppService.cs" />
     <Compile Include="Users\Dto\CreateUserDto.cs" />
     <Compile Include="Users\Dto\UpdateUserDto.cs" />
     <Compile Include="Users\Dto\UserDto.cs" />

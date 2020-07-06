@@ -2,6 +2,7 @@
 using Abp.Web.Mvc.Authorization;
 using ShopCart.Authorization;
 using ShopCart.Roles;
+using ShopCart.States;
 using ShopCart.Web.Models.Roles;
 using System;
 using System.Collections.Generic;
@@ -16,14 +17,17 @@ namespace ShopCart.Web.Controllers
     public class StateController : Controller
     {
         private readonly IRoleAppService _roleAppService;
+        private readonly IStateAppService _stateAppService;
 
-        public StateController(IRoleAppService roleAppService)
+        public StateController(IRoleAppService roleAppService, IStateAppService stateAppService)
         {
             _roleAppService = roleAppService;
+            _stateAppService = stateAppService;
         }
         // GET: State
         public async Task<ActionResult> Index()
         {
+            var state = await _stateAppService.GetAll();
             var roles = (await _roleAppService.GetAllAsync(new PagedAndSortedResultRequestDto())).Items;
             var permissions = (await _roleAppService.GetAllPermissions()).Items;
             var model = new RoleListViewModel
