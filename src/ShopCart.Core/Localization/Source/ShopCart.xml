@@ -77,6 +77,8 @@
     <text name="EditUser">Edit User</text>
     <text name="Edit">Edit</text>
     <text name="Delete">Delete</text>
+    <text name="StateName">States Name</text>
+    <text name="State">States</text>
 
 
   </texts>

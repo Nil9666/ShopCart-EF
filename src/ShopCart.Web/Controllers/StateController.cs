@@ -4,6 +4,7 @@ using ShopCart.Authorization;
 using ShopCart.Roles;
 using ShopCart.States;
 using ShopCart.Web.Models.Roles;
+using ShopCart.Web.Models.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,14 +29,17 @@ namespace ShopCart.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var state = await _stateAppService.GetAll();
-            var roles = (await _roleAppService.GetAllAsync(new PagedAndSortedResultRequestDto())).Items;
-            var permissions = (await _roleAppService.GetAllPermissions()).Items;
-            var model = new RoleListViewModel
+            //var roles = (await _roleAppService.GetAllAsync(new PagedAndSortedResultRequestDto())).Items;
+            //var permissions = (await _roleAppService.GetAllPermissions()).Items;
+            //var model = new RoleListViewModel
+            //{
+            //    Roles = roles,
+            //    Permissions = permissions
+            //};
+            var model = new StatesViewDto()
             {
-                Roles = roles,
-                Permissions = permissions
+                States = state
             };
-
             return View(model);
         }
     }

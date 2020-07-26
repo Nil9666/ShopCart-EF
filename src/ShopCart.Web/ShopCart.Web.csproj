@@ -2803,6 +2803,7 @@
     <Compile Include="Models\Layout\SideBarUserAreaViewModel.cs" />
     <Compile Include="Models\Roles\EditRoleModalViewModel.cs" />
     <Compile Include="Models\Roles\RoleListViewModel.cs" />
+    <Compile Include="Models\States\StatesViewDto.cs" />
     <Compile Include="Models\Users\EditUserModalViewModel.cs" />
     <Compile Include="Models\Users\UserListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

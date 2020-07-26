@@ -31,21 +31,16 @@ namespace ShopCart.States
         public async Task<List<StateDto>> GetAll()
         {
             var States =await _stateRepository.GetAllListAsync(e=>e.TenantId == AbpSession.TenantId);
-            
-            var StatesList = new List<StateDto>();
-            foreach (var item in States)
+            try
             {
-                var objState = new StateDto()
-                {
-                    Id = item.Id,
-                    TenantId = item.TenantId,
-                    IsActive = item.IsActive,
-                    StateName = item.StateName
-                };
-                StatesList.Add(objState);
-            }
+                var StatesList = ObjectMapper.Map<List<StateDto>>(States.ToList());
 
-            return StatesList;
+                return StatesList;
+            }
+            catch (Exception ex)
+            {
+                return new List<StateDto>();
+            }
         }
     }
 }

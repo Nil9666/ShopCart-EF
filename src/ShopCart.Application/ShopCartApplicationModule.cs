@@ -9,6 +9,8 @@ using Abp.Modules;
 using ShopCart.Authorization.Roles;
 using ShopCart.Authorization.Users;
 using ShopCart.Roles.Dto;
+using ShopCart.States;
+using ShopCart.States.Dto;
 using ShopCart.Users.Dto;
 
 namespace ShopCart
@@ -41,6 +43,8 @@ namespace ShopCart
 
                 cfg.CreateMap<CreateUserDto, User>();
                 cfg.CreateMap<CreateUserDto, User>().ForMember(x => x.Roles, opt => opt.Ignore());
+
+                cfg.CreateMap<State, StateDto>();
             });
         }
     }
