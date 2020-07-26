@@ -45,6 +45,7 @@ namespace ShopCart
                 cfg.CreateMap<CreateUserDto, User>().ForMember(x => x.Roles, opt => opt.Ignore());
 
                 cfg.CreateMap<State, StateDto>();
+                cfg.CreateMap<CreateOrEditStateDto, State>();
             });
         }
     }

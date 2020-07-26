@@ -1,8 +1,8 @@
 ﻿(function () {
     $(function () {
 
-        var _roleService = abp.services.app.role;
-        var _$modal = $('#RoleCreateModal');
+        var _stateService = abp.services.app.state;
+        var _$modal = $('#StateCreateModal');
         var _$form = _$modal.find('form');
 
         _$form.validate({
@@ -35,29 +35,43 @@
         });
 
         _$form.find('button[type="submit"]').click(function (e) {
+            debugger
             e.preventDefault();
 
             if (!_$form.valid()) {
                 return;
             }
 
-            var role = _$form.serializeFormToObject(); //serializeFormToObject is defined in main.js
-            role.grantedPermissions = [];
-            var _$permissionCheckboxes = $("input[name='permission']:checked:visible");
-            if (_$permissionCheckboxes) {
-                for (var permissionIndex = 0; permissionIndex < _$permissionCheckboxes.length; permissionIndex++) {
-                    var _$permissionCheckbox = $(_$permissionCheckboxes[permissionIndex]);
-                    role.grantedPermissions.push(_$permissionCheckbox.val());
-                }
-            }
-
             abp.ui.setBusy(_$modal);
-            _roleService.create(role).done(function () {
+           
+            //_roleService.create(role).done(function () {
+            //    _$modal.modal('hide');
+            //    location.reload(true); //reload page to see new role!
+            //}).always(function () {
+            //    abp.ui.clearBusy(_$modal);
+            //});
+                        
+            //var stateName = $("#statename").val();
+            var state = _$form.serializeFormToObject();
+            //var data0 = { Id: null, StateName: stateName };
+            //var json = JSON.stringify(data0);
+            _stateService.create(state).done(function () {
                 _$modal.modal('hide');
                 location.reload(true); //reload page to see new role!
             }).always(function () {
                 abp.ui.clearBusy(_$modal);
             });
+            //abp.ajax({
+            //    url: abp.appPath + 'State/CreateOrEdit',
+            //    type: 'POST',
+            //    data: json,
+            //    dataType: 'html',
+            //    success: function (content) {
+            //        _$modal.modal('hide');
+            //        location.reload(true); //reload page to see new role!
+            //    },
+            //    error: function (e) { }
+            //});
         });
 
         _$modal.on('shown.bs.modal', function () {

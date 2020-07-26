@@ -79,6 +79,7 @@
     <text name="Delete">Delete</text>
     <text name="StateName">States Name</text>
     <text name="State">States</text>
+    <text name="CreateNewState">Create State</text>
 
 
   </texts>

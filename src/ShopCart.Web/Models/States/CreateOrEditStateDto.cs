@@ -2,16 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace ShopCart.States.Dto
+namespace ShopCart.Web.Models.States
 {
     public class CreateOrEditStateDto : EntityDto<Guid>
     {
-        public int? TenantId { get; set; }
         public string StateName { get; set; }
-        public bool IsActive { get; set; }
-        //public StateDto State { get; set; }
     }
 }

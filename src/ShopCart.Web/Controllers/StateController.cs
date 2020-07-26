@@ -17,25 +17,17 @@ namespace ShopCart.Web.Controllers
     [AbpMvcAuthorize(PermissionNames.Pages_State)]
     public class StateController : Controller
     {
-        private readonly IRoleAppService _roleAppService;
         private readonly IStateAppService _stateAppService;
 
-        public StateController(IRoleAppService roleAppService, IStateAppService stateAppService)
-        {
-            _roleAppService = roleAppService;
+        public StateController(IStateAppService stateAppService)
+        {            
             _stateAppService = stateAppService;
         }
         // GET: State
         public async Task<ActionResult> Index()
         {
             var state = await _stateAppService.GetAll();
-            //var roles = (await _roleAppService.GetAllAsync(new PagedAndSortedResultRequestDto())).Items;
-            //var permissions = (await _roleAppService.GetAllPermissions()).Items;
-            //var model = new RoleListViewModel
-            //{
-            //    Roles = roles,
-            //    Permissions = permissions
-            //};
+            
             var model = new StatesViewDto()
             {
                 States = state

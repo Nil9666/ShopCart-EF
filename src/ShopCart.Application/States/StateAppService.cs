@@ -23,17 +23,41 @@ namespace ShopCart.States
             _stateRepository = stateRepository;
         }
 
-        public Task<StateDto> CreateAsync(CreateOrEditStateDto input)
+        public async Task<StateDto> CreateAsync(CreateOrEditStateDto input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (input.Id != null && input.Id != Guid.Empty)
+                {
+                    return ObjectMapper.Map<StateDto>(await _stateRepository.FirstOrDefaultAsync(input.Id));
+                }
+                else
+                {
+                    var State = ObjectMapper.Map<State>(input);
+
+                    if (AbpSession.TenantId != null)
+                    {
+                        State.TenantId = (int?)AbpSession.TenantId;
+                    }
+
+                    await _stateRepository.InsertAndGetIdAsync(State);
+                    return ObjectMapper.Map<StateDto>(State);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                return new StateDto();
+            }            
         }
 
         public async Task<List<StateDto>> GetAll()
         {
             var States =await _stateRepository.GetAllListAsync(e=>e.TenantId == AbpSession.TenantId);
+
             try
             {
-                var StatesList = ObjectMapper.Map<List<StateDto>>(States.ToList());
+                var StatesList = ObjectMapper.Map<List<StateDto>>(States.OrderByDescending(e=>e.CreationTime).ToList());
 
                 return StatesList;
             }
